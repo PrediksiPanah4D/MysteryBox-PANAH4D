@@ -281,11 +281,79 @@ placeholder="Masukkan Username / ID">
 
 </div>
 </div>
+<script>
+function openBox(){
 
-<button onclick="openBox()">
-🎁 BUKA MYSTERY BOX
-</button>
+// Cek apakah sudah pernah klaim
+if(localStorage.getItem("mystery_claimed")){
+    alert("❌ Anda sudah pernah mengklaim Mystery Box ini!");
+    return;
+}
 
+let user =
+document.getElementById("username").value;
+
+if(user==""){
+    alert("Masukkan Username / ID");
+    return;
+}
+
+let box =
+document.getElementById("box");
+
+box.classList.add("shake");
+
+setTimeout(()=>{
+
+    box.classList.remove("shake");
+    box.classList.add("open");
+
+    document.getElementById("boom").style.display="block";
+
+    document.getElementById("boomSound").play();
+
+    launchConfetti();
+    rainCoins();
+
+    let saldo =
+    hadiah[Math.floor(Math.random()*hadiah.length)];
+
+    setTimeout(()=>{
+
+        document.getElementById("result").style.display="block";
+
+        document.getElementById("saldo").innerHTML =
+        "Rp " + saldo.toLocaleString("id-ID");
+
+        document.getElementById("ucapan").innerHTML =
+        "🎉 Selamat <b>"+user+
+        "</b><br>Anda mendapatkan hadiah saldo!";
+
+        // Simpan status klaim
+        localStorage.setItem("mystery_claimed","true");
+        localStorage.setItem("claim_user",user);
+        localStorage.setItem("claim_saldo",saldo);
+
+    },1000);
+
+},2500);
+
+}
+  window.onload = function(){
+
+    if(localStorage.getItem("mystery_claimed")){
+
+        document.querySelector("button").disabled = true;
+
+        document.querySelector("button").innerHTML =
+        "✅ SUDAH DIKLAIM";
+
+        document.querySelector("button").style.opacity = ".6";
+
+    }
+
+}
+</script>
 <div id="boom">
 💥 BOOM!
 </div>
