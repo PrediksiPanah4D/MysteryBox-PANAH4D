@@ -67,8 +67,22 @@ perspective:1000px;
 margin:auto;
 width:250px;
 height:250px;
+position:relative;
+transform:translateY(80px);
 }
 
+button{
+margin-top:120px;
+padding:16px 40px;
+font-size:20px;
+font-weight:bold;
+border:none;
+border-radius:50px;
+cursor:pointer;
+background:linear-gradient(45deg,#FFD700,#FFA500);
+box-shadow:0 0 30px gold;
+}
+  
 .box{
 width:250px;
 height:250px;
@@ -76,7 +90,26 @@ position:relative;
 transform-style:preserve-3d;
 animation:float 4s infinite ease-in-out;
 }
+input{
+width:100%;
+max-width:400px;
+padding:15px;
+font-size:18px;
+border-radius:15px;
+margin-bottom:50px;
+}
 
+.box-wrap{
+perspective:1000px;
+width:250px;
+height:250px;
+margin:0 auto;
+transform:translateY(60px);
+}
+
+button{
+margin-top:90px;
+}
 .face{
 position:absolute;
 width:250px;
@@ -271,15 +304,13 @@ placeholder="Masukkan Username / ID">
 <script>
 
 const hadiah=[
-5000,
-10000,
-25000,
-50000,
-100000,
-250000,
-500000
+1000000,
+1000000,
+1000000,
+1000000,
+2000000
 ];
-
+  
 function openBox(){
 
 let user=
