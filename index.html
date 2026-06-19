@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -162,11 +163,16 @@ margin-bottom:15px;
 }
 
 .win-amount{
-font-size:50px;
+font-size:58px;
 font-weight:900;
+line-height:1.1;
+
 color:#FFD700;
-margin-bottom:20px;
-text-shadow:0 0 20px gold;
+
+text-shadow:
+0 0 5px rgba(255,215,0,.35);
+
+margin:15px 0 20px;
 }
 
 .claim-btn{
@@ -200,120 +206,132 @@ font-size:18px;
 text-align:center;
 margin-bottom:20px;
 }
-</style>
-<head>
-<!-- HEADER -->
+</style><head>
+<div class="container">
 
-<div class="world-cup-title">
+<body class="worldcup-gold">
 
-<a href="https://panahkawan.com" target="_blank" class="logo-link">
-<img
-src="https://panahkawan.com/images/logoweb.png"
-class="wc-logo"
-alt="PANAH4D">
-</a>
+<div class="gold-stars"></div>
+<div class="gold-shine"></div>
 
-<h1>SALDO GRATIS PANAH4D</h1>
-
-<p>VOUCHER EDITION</p>
-
-</div>
 <style>
-@media (max-width:768px){
 
-/* Logo */
-.wc-logo{
-width:280px !important;
-max-width:90%;
-margin:0 auto 15px;
+/* =========================
+   RESET
+========================= */
+html,
+body{
+margin:0;
+padding:0;
+width:100%;
+min-height:100vh;
+overflow-x:hidden;
+font-family:'Poppins',sans-serif;
+background:#000;
 }
 
-/* Judul */
-.world-cup-title h1{
-font-size:30px !important;
-line-height:1.15;
-letter-spacing:1px;
-padding:0 10px;
-}
+/* =========================
+   WORLD CUP GOLD BACKGROUND
+========================= */
+.worldcup-gold{
+position:relative;
+min-height:100vh;
 
-/* Sub Judul */
-.world-cup-title p{
-font-size:11px !important;
-letter-spacing:4px;
-margin-top:6px;
-}
+background:
+radial-gradient(
+circle at top,
+rgba(255,215,0,.10),
+transparent 30%
+),
 
-/* Jarak keseluruhan */
-.world-cup-title{
-margin-bottom:20px;
-padding:0 10px;
-}
-
-}
-
-@media (max-width:480px){
-
-.wc-logo{
-width:240px !important;
-}
-
-.world-cup-title h1{
-font-size:26px !important;
-line-height:1.1;
-}
-
-.world-cup-title p{
-font-size:10px !important;
-letter-spacing:3px;
-}
-
-}
-.world-cup-title{
-text-align:center;
-margin-bottom:25px;
-}
-
-.wc-logo{
-width:260px;
-max-width:90%;
-display:block;
-margin:0 auto 15px;
-
-filter:
-drop-shadow(0 0 10px rgba(255,215,0,.6))
-drop-shadow(0 0 25px rgba(255,215,0,.3));
-}
-
-.world-cup-title h1{
-font-size:38px;
-font-weight:900;
-margin:10px 0 5px;
-
-background:linear-gradient(
+linear-gradient(
 180deg,
-#fff8c6 0%,
-#ffd700 45%,
-#c99700 100%
+#241800 0%,
+#120d00 25%,
+#070707 60%,
+#000000 100%
+);
+}
+
+/* =========================
+   GOLD PARTICLES ULTRA LITE
+========================= */
+.gold-stars{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:1;
+opacity:.15;
+}
+
+.gold-stars:before{
+content:'';
+position:absolute;
+inset:0;
+
+background-image:
+radial-gradient(
+circle,
+#ffd700 1px,
+transparent 1.5px
 );
 
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+background-size:120px 120px;
 
-text-shadow:
-0 2px 0 #e6c200,
-0 4px 0 #b8860b,
-0 8px 12px rgba(0,0,0,.4);
-
-letter-spacing:2px;
+animation:goldFloat 80s linear infinite;
 }
 
-.world-cup-title p{
-font-size:14px;
-letter-spacing:6px;
-color:#fff3a0;
-text-transform:uppercase;
-margin-top:5px;
+@keyframes goldFloat{
+from{
+transform:translateY(0);
 }
+to{
+transform:translateY(-120px);
+}
+}
+
+/* =========================
+   GOLD SHINE
+========================= */
+.gold-shine{
+position:fixed;
+top:0;
+left:-30%;
+width:30%;
+height:100%;
+pointer-events:none;
+z-index:2;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,215,0,.03),
+transparent
+);
+
+animation:goldSweep 25s linear infinite;
+}
+
+@keyframes goldSweep{
+100%{
+left:130%;
+}
+}
+
+/* =========================
+   HEADER
+========================= */
+.world-cup-title{
+position:relative;
+z-index:10;
+text-align:center;
+padding:20px 15px;
+}
+
+/* =========================
+   BIG LOGO CLICKABLE
+========================= */
 .logo-link{
 display:block;
 text-decoration:none;
@@ -448,17 +466,75 @@ letter-spacing:6px;
 
 text-transform:uppercase;
 }
-  </style>
-</head>
-<body>
 
-<div class="container">
+/* =========================
+   GOLD FRAME
+========================= */
+body::after{
+content:'';
+position:fixed;
+inset:8px;
 
-<div class="title">VOUCHER PANAH4D</div>
+border:1px solid rgba(255,215,0,.15);
+border-radius:20px;
 
-<div class="subtitle">
-Tekan tombol dan Claim Saldo voucher Mu.!!
+pointer-events:none;
+z-index:999;
+
+box-shadow:
+0 0 8px rgba(255,215,0,.05);
+}
+
+/* =========================
+   PERFORMANCE BOOST
+========================= */
+.gold-stars,
+.gold-shine{
+transform:translate3d(0,0,0);
+will-change:transform;
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media(max-width:768px){
+
+.wc-logo{
+width:340px;
+}
+
+.world-cup-title h1{
+font-size:28px;
+}
+
+.world-cup-title p{
+font-size:11px;
+letter-spacing:4px;
+}
+
+}
+
+</style>
+
+<!-- HEADER -->
+
+<div class="world-cup-title">
+
+<a href="https://panahkawan.com" target="_blank" class="logo-link">
+<img
+src="https://panahkawan.com/images/logoweb.png"
+class="wc-logo"
+alt="PANAH4D">
+</a>
+
+<h1>SALDO VOUCHER GRATIS PANAH4D</h1>
+
+<p>MASUKKAN USERNAME ID KAMU DI KOTAK BAWAH INI.!!</p>
+
 </div>
+
+<!-- KONTEN WEBSITE -->
+
 <input
 type="text"
 id="username"
@@ -478,7 +554,6 @@ Rp ?
 
 </div>
 
-</div>
 
 <div class="popup" id="popup">
 
@@ -514,10 +589,10 @@ Tutup
 <script>
 
 const hadiah=[
-{nominal:1000000,label:"BIG WIN"},
-{nominal:2000000,label:"MEGA WIN"},
-{nominal:5000000,label:"SUPER JACKPOT"},
-{nominal:10000000,label:"MAX WIN"}
+{nominal:1000000,label:"VOUCHER"},
+{nominal:1500000,label:"VOUCHER"},
+{nominal:1750000,label:"VOUCHER"},
+{nominal:2000000,label:"VOUCHER"}
 ];
 
 function spinSlot(){
@@ -564,7 +639,7 @@ document.getElementById("popupAmount").innerHTML=
 
 document.getElementById("popupUser").innerHTML=
 "🎉 Selamat <b>"+user+
-"</b><br>Anda berhasil memenangkan hadiah!";
+"</b><br>SCREENSHOT SALDO VOUCHER ANDA BERIKAN KE ADMIN SEKARANG JUGA.!!!";
 
 document.getElementById("popup").style.display=
 "flex";
