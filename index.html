@@ -89,12 +89,49 @@ width:320px;
 margin:auto;
 padding:25px;
 border-radius:25px;
+
 background:
-linear-gradient(180deg,#0f172a,#1e293b);
-border:3px solid gold;
+linear-gradient(
+180deg,
+#0f172a 0%,
+#1e293b 100%
+);
+
+border:2px solid #ffb400;
+
 box-shadow:
-0 0 25px gold,
-0 0 50px #38bdf8;
+0 0 8px rgba(255,180,0,.6),
+0 0 20px rgba(255,140,0,.5),
+0 0 40px rgba(255,215,0,.35),
+inset 0 1px 0 rgba(255,255,255,.12);
+
+position:relative;
+}
+  
+  .slot-machine::before{
+content:"";
+position:absolute;
+inset:-3px;
+border-radius:28px;
+padding:2px;
+
+background:
+linear-gradient(
+135deg,
+#ff7b00,
+#ffb400,
+#ffd700,
+#ff9900
+);
+
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+
+pointer-events:none;
 }
 
 .reel{
@@ -724,6 +761,8 @@ const winners = [
 ["WIN***88","1.000.000"],
 ["TOP***21","1.500.000"],
 ["LUC***55","2.000.000"],
+["DER***77","2.000.000"],
+["4DE***00","2.000.000"],
 ["KIN***22","1.750.000"]
 
 ];
