@@ -16,13 +16,8 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
+min-height:100vh;
 color:white;
 
 background:
@@ -33,6 +28,9 @@ radial-gradient(circle at top,
 #000000 100%);
 
 position:relative;
+
+overflow-x:hidden;
+overflow-y:auto;
 }
 
 body::before{
@@ -54,8 +52,11 @@ pointer-events:none;
 }
 
 .container{
+width:100%;
+max-width:500px;
+margin:0 auto;
+padding:15px;
 text-align:center;
-padding:20px;
 }
 
 .title{
@@ -824,15 +825,7 @@ btn.style.cursor="not-allowed";
 }
 
 });
-function addWinner(user,nominal){
 
-console.log(
-"Winner:",
-user,
-nominal
-);
-
-}
 function spinSlot(){
 
 if(isSpinning) return;
