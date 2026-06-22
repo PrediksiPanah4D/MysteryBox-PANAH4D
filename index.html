@@ -102,15 +102,31 @@ height:90px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:40px;
+
+font-size:clamp(24px, 7vw, 42px);
+
 font-weight:900;
+line-height:1;
+
 background:#000;
 border-radius:15px;
 border:2px solid gold;
 margin-bottom:20px;
 color:#FFD700;
-}
 
+white-space:nowrap;
+overflow:hidden;
+text-align:center;
+padding:0 12px;
+box-sizing:border-box;
+}
+  
+  .reel{
+font-size:42px;
+font-weight:900;
+letter-spacing:-1px;
+}
+  
 .spin-btn{
 padding:15px 40px;
 font-size:20px;
@@ -163,8 +179,8 @@ margin-bottom:15px;
 }
 
 .win-amount{
-font-size:58px;
-font-weight:900;
+font-size:30px;
+font-weight:600;
 line-height:1.1;
 
 color:#FFD700;
@@ -549,7 +565,7 @@ Rp ?
 </div>
 
 <button class="spin-btn" onclick="spinSlot()">
- AMBIL SALDOMU SEKARANG
+ CLAIM
 </button>
 
 </div>
@@ -659,6 +675,22 @@ function closePopup(){
     document.getElementById("popup").style.display = "none";
 }
 </script>
+<script>
+function fitReelText(){
+    const reel = document.querySelector('.reel');
 
+    let size = 150; /* Perbesar dari 50 menjadi 70 */
+
+    reel.style.fontSize = size + 'px';
+
+    while(reel.scrollWidth > reel.clientWidth - 20 && size > 30){
+        size--;
+        reel.style.fontSize = size + 'px';
+    }
+}
+
+window.addEventListener('load', fitReelText);
+window.addEventListener('resize', fitReelText);
+</script>
 </body>
 </html>
