@@ -126,7 +126,45 @@ font-size:42px;
 font-weight:900;
 letter-spacing:-1px;
 }
-  
+
+  .reel{
+height:90px;
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:42px;
+font-weight:900;
+letter-spacing:-1px;
+
+background:
+linear-gradient(
+180deg,
+#111111 0%,
+#050505 100%
+);
+
+border-radius:15px;
+border:2px solid #f0ab00;
+
+color:#FFD700;
+
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,.15),
+inset 0 -2px 4px rgba(0,0,0,.5),
+0 2px 8px rgba(0,0,0,.35);
+
+text-shadow:
+0 1px 0 rgba(255,255,255,.15);
+
+white-space:nowrap;
+overflow:hidden;
+text-align:center;
+padding:0 12px;
+box-sizing:border-box;
+
+margin-bottom:20px;
+}
 .spin-btn{
 display:inline-block;
 min-width:120px;
@@ -556,7 +594,44 @@ letter-spacing:4px;
 }
 
 }
+.winner-box{
+margin-top:20px;
+padding:15px;
+border-radius:15px;
+background:linear-gradient(180deg,#111,#050505);
+border:2px solid #f0ab00;
+}
 
+.winner-title{
+text-align:center;
+font-size:18px;
+font-weight:900;
+color:#FFD700;
+margin-bottom:12px;
+}
+
+.winner-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:8px 12px;
+margin-bottom:8px;
+
+border-radius:10px;
+
+background:rgba(255,215,0,.05);
+border:1px solid rgba(255,215,0,.15);
+
+font-size:14px;
+font-weight:700;
+color:#fff;
+}
+
+.winner-amount{
+color:#FFD700;
+font-weight:900;
+}
 </style>
 
 <!-- HEADER -->
@@ -594,9 +669,15 @@ Rp ?
 <button class="spin-btn" onclick="spinSlot()">
  CLAIM
 </button>
+  <div class="winner-box">
+<div class="winner-title">
+🏆 PEMENANG TERBARU
+</div>
+<div id="winnerFeed"></div>
 
 </div>
 
+</div>
 
 <div class="popup" id="popup">
 
@@ -628,7 +709,57 @@ Tutup
 </div>
 
 </div>
+<script>
 
+const winners = [
+
+["PAN***88","2.000.000"],
+["JOK***12","1.500.000"],
+["BOS***99","1.750.000"],
+["SUL***45","1.000.000"],
+["AND***77","2.000.000"],
+["VIP***11","1.500.000"],
+["MAX***66","1.750.000"],
+["PRO***09","2.000.000"],
+["WIN***88","1.000.000"],
+["TOP***21","1.500.000"],
+["LUC***55","2.000.000"],
+["KIN***22","1.750.000"]
+
+];
+
+function renderWinners(){
+
+let html = "";
+
+const shuffled =
+[...winners].sort(()=>0.5-Math.random());
+
+const selected =
+shuffled.slice(0,5);
+
+selected.forEach(item=>{
+
+html += `
+<div class="winner-item">
+<span>${item[0]}</span>
+<span class="winner-amount">
+Rp ${item[1]}
+</span>
+</div>
+`;
+
+});
+
+document.getElementById("winnerFeed").innerHTML = html;
+
+}
+
+renderWinners();
+
+setInterval(renderWinners,5000);
+
+</script>
 <script>
 
 const hadiah=[
@@ -638,69 +769,136 @@ const hadiah=[
 {nominal:2000000,label:"VOUCHER"}
 ];
 
+let isSpinning=false;
+
+window.addEventListener("load",()=>{
+
+if(localStorage.getItem("voucher_claimed")){
+
+const btn=document.querySelector(".spin-btn");
+
+btn.innerHTML="SUDAH CLAIM";
+btn.disabled=true;
+btn.style.opacity=".5";
+btn.style.cursor="not-allowed";
+
+}
+
+});
+
 function spinSlot(){
 
-let user =
-document.getElementById("username").value;
+if(isSpinning) return;
+
+if(localStorage.getItem("voucher_claimed")){
+alert("❌ Voucher sudah pernah di-claim!");
+return;
+}
+
+const user=document.getElementById("username").value;
 
 if(user==""){
 alert("Masukkan Username terlebih dahulu!");
 return;
 }
 
-const reel=document.getElementById("reel");
+isSpinning=true;
 
+const reel=document.getElementById("reel");
+const btn=document.querySelector(".spin-btn");
+
+btn.innerHTML="MEMPROSES...";
+btn.disabled=true;
+
+let speed=50;
 let count=0;
 
-let rolling=setInterval(()=>{
+function rollingEffect(){
 
 reel.innerHTML=
 "Rp "+
 (Math.floor(Math.random()*9)+1)+
 "."+
-(Math.floor(Math.random()*999))+
+(Math.floor(Math.random()*900)+100)+
 ".000";
 
 count++;
 
-if(count>30){
+if(count<45){
 
-clearInterval(rolling);
+if(count>25){
+speed+=12;
+}
 
-let result=
+setTimeout(rollingEffect,speed);
+
+}else{
+
+const result=
 hadiah[Math.floor(Math.random()*hadiah.length)];
 
 reel.innerHTML=
 "Rp "+result.nominal.toLocaleString("id-ID");
 
 document.getElementById("winType").innerHTML=
-result.label;
+"🎉 SELAMAT 🎉";
 
 document.getElementById("popupAmount").innerHTML=
 "Rp "+result.nominal.toLocaleString("id-ID");
 
-
 document.getElementById("popupUser").innerHTML=
-"🎉 Selamat <b>"+user+
-"</b><br>SCREENSHOT SALDO VOUCHER ANDA BERIKAN KE ADMIN SEKARANG JUGA.!!!";
+"🎊 Selamat <b>"+user+
+"</b><br><br>SCREENSHOT VOUCHER INI DAN KIRIM KE ADMIN UNTUK CLAIM HADIAH.";
 
-document.getElementById("popup").style.display=
-"flex";
+document.getElementById("popup").style.display="flex";
 
+localStorage.setItem("voucher_claimed","true");
+  
+addWinner(user,result.nominal);
+  
+btn.innerHTML="SUDAH CLAIM";
+btn.disabled=true;
+btn.style.opacity=".5";
+btn.style.cursor="not-allowed";
+
+isSpinning=false;
+
+if(typeof confetti!=="undefined"){
 confetti({
 particleCount:400,
 spread:180,
 origin:{y:0.6}
 });
 
+setTimeout(()=>{
+confetti({
+particleCount:250,
+spread:120,
+origin:{x:0}
+});
+},300);
+
+setTimeout(()=>{
+confetti({
+particleCount:250,
+spread:120,
+origin:{x:1}
+});
+},300);
 }
 
-},100);
+}
 
 }
+
+rollingEffect();
+
+}
+
 function closePopup(){
-    document.getElementById("popup").style.display = "none";
+document.getElementById("popup").style.display="none";
 }
+
 </script>
 <script>
 function fitReelText(){
